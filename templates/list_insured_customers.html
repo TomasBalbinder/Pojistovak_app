@@ -1,0 +1,140 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+
+{% if messages %}
+    {% for message in messages %}  
+        {% if "success" in message.tags %}
+            <div class="p-3 mb-2 bg-success text-white">
+                {{ message }}
+            </div>
+        {% elif "error" in message.tags %}
+            <div class="p-3 mb-2 bg-danger text-white">
+                {{ message }}
+            </div>
+        {% endif %}    
+    {% endfor %}
+{% endif %}
+
+{% block scripts %}
+
+<!-- timer for hide messages -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var alerts = document.getElementsByClassName("bg-success");
+                while(alerts.length > 0){
+                    alerts[0].remove();
+                }
+            }, 3500); 
+        });
+    </script>
+{% endblock %}
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8">
+      <h2 class="margin_top">Pojištěnci</h2>
+      <p>Souhrn pojištěncu</p>
+    </div>
+    <div class="d-flex align-items-center justify-content-center"style="min-height: 40vh">
+      
+      <div class="container-fluid mt-4">
+        <div class="row mt-3">
+          {% if request.user.is_authenticated %}
+          <div class="col-lg-4 col-md-4">
+            <form method="GET">
+            <select class="form-select mywidth" style="width: 460px;" name="user" id="user" onchange="this.form.submit()">  
+                <option value="" disabled selected> Třídit podle uživatele: </option>
+                <option value="0" style="background-color: #ffffff;">-- Zobrazit všechny --</option>  
+              {% for user in users %}  
+                <option value="{{ user.pk }}" style="background-color: {{ user.assigned_color }};">{{ user }}</option>       
+              {% endfor %}
+            </select>
+            </form>
+          </div>
+          <div class="col-lg-4 col-md-4 text-center">
+            <a href="{% url 'new_insured' %}" class="btn btn-primary mywidth">Nový pojištěnec</a>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <div class="d-flex justify-content-end"></div>
+          </div>
+          {% endif %} 
+        </div>
+        {% if page|length == 0 %}
+          <h3 class="text-center margin_table_p">Tabulka je prázdná</h3>
+        {% else %}
+        <table class="table table-bordered border border-secondary border-2 p-1">
+          <thead>
+            <tr>
+              <th class="text-center" style="width: 0%;"></th>
+              <th class="text-center" style="width: 15%;">Jméno</th>
+              <th class="text-center" style="width: 25%;">Adresa</th>
+              <th class="text-center"  style="width: 20%;">Kontakt</th>
+              <th class="text-center">Úprava</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for customer in page %}
+            <tr>
+              <td><div class="rectangel" style="background-color: {{ customer.assigned_color }}"></div></td>
+              <td>{{ customer.first_name }}  {{ customer.last_name }}</td>
+              <td>
+                {% if customer.address %}
+                  {{ customer.address }}
+                {% if customer.city %}, {{ customer.city }}{% endif %}
+                {% if customer.zip_code %}, {{ customer.zip_code }}{% endif %}
+                {% elif customer.city %}
+                  {{ customer.city }}
+                {% if customer.zip_code %}, {{ customer.zip_code }}{% endif %}
+                {% else %}
+                  {{ customer.zip_code }}
+                {% endif %}
+              </td>
+              <td>
+                {% if customer.phone %}
+                  {{ customer.phone }}
+                {% if customer.email %}, {{ customer.email }}{% endif %}
+                {% else %}
+                  {{ customer.email }}
+                {% endif %}
+              </td>
+           
+              <td class="col-md-2 text-center">
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'insured_detail' pk=customer.pk %}" class="btn btn-warning">Detail</a>
+                <form method="POST" action="{% url 'delete_customer' pk=customer.pk %}" style="display: inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger">Smazat</button>                
+                </form>                
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table> 
+        <ul class="pagination justify-content-center">
+          {% if page.has_previous %}
+              <li class="page-item">
+                  <a class="page-link" href="?page={{ page.previous_page_number }}">Předchozí</a>
+              </li>
+          {% endif %}
+          
+          {% for num in page.paginator.page_range %}
+              <li class="page-item {% if page.number == num %}active{% endif %}">
+                  <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+              </li>
+          {% endfor %}
+          
+          {% if page.has_next %}
+              <li class="page-item">
+                  <a class="page-link" href="?page={{ page.next_page_number }}">Další</a>
+              </li>
+          {% endif %}
+        </ul>
+        {% endif %} 
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% load static %}{% block content %}
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>O aplikaci</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+</head>
+<body class="text-center">
+  <div class="container mt-5">
+    <header>
+      <h2 class="margin_top" style="margin-top: 100px;">Vítejte v mojí aplikaci!</h2>
+      <p class="margin_bottom">Moje aplikace je navržena tak, aby pomohla spravovat a sledovat vaše pojištění efektivně a snadno.</p>
+    </header>
+    <section id="purpose">
+        <h2>Účel a Funkce</h2>
+      <ul class="ul_ol_center">
+        <p>Cílem mojí aplikace je usnadnit pojišťovacím agentům správu jejich klientů a smluv. S naší aplikací můžete:</p>
+        <li>Spravovat seznamy klientů.</li>
+        <li>Sledovat uzavřené smlouvy a jejich hodnoty.</li>
+        <li>Generovat přehledy a statistiky o výkonnosti.</li>
+      </ul>
+    </section>
+    <section id="how-to-use" class="mt-5">
+        <h2>Jak používat aplikaci</h2>
+        <p>
+          <strong>Než se zkusíte přihlásit do aplikace je potřeba mě kontaktovat, například prostřednictvím emailu tady na stránce.</strong><br>
+          Až když obdržíte vaše přihlašovací údaje můžete se registrovat.
+        </p>  
+        <p>Po registraci se již můžete přihlásít do svého účtu. Poté můžete:</p>
+        <ol class="ul_ol_center">
+            <li>Přidávat nové klienty a jejich údaje.</li>
+            <li>Uzavírat nové smlouvy a přiřazovat je ke klientům.</li>
+            <li>Sledovat a analyzovat své výsledky pomocí přehledů.</li>
+        </ol>
+    </section>
+    <section id="contact" class="mt-5">
+        <h2>Kontakt</h2>
+        <p>Máte otázky nebo potřebujete pomoc? Kontaktujte mě na <a href="mailto:tomasbalbinder@gmail.com">tomasbalbinder@gmail.com</a>.</p>
+    </section>
+    <footer>
+        <p>&copy; 2024 Aplikace. Všechna práva vyhrazena.</p>
+    </footer>
+  </div>
+</body>
+</html>
+{% endblock %}

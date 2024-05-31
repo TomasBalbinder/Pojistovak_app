@@ -1,0 +1,82 @@
+/* */
+.margin_top {
+    margin-top: 60px;
+    font-weight: bold; 
+}
+
+  
+/* button pojistenec_detail.html*/
+.mywidth-p-font {
+    width: 200px; 
+    padding: 12px;
+    font-size: 18px;
+}
+
+/* pojistenec_detail.html*/
+.my-margin {
+    margin-top: 100px;
+}
+
+
+.margin_bottom {
+    margin-bottom: 90px;
+}
+
+.asterisk::after {
+    content: '*';
+    color: red; 
+}
+
+.big-checkbox {
+    width: 30px; 
+    height: 30px; 
+    margin-left: 3px;
+    border: 1.5px solid;
+}
+
+/* button pojistenci.html*/
+.mywidth_delete {
+    width: 170px; 
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* button novypojistenec.html*/
+.mywidth {
+    width: 150px; 
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.margin_table_p{
+    margin-top: 25px;
+    margin-bottom: 50px;
+}
+
+.square {
+    margin-top: 15px; 
+    width: 20px;
+    height: 20px;
+    display: inline-block; 
+    vertical-align: middle; 
+}
+
+.rectangel {
+    width: 20px;
+    height: 40px;
+    margin-left: -40px;
+    vertical-align: bottom;
+}
+
+.margin_table_pd{
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.ul_ol_center {
+    list-style-position: inside;
+    text-align: center;
+    padding-left: 0;
+}

@@ -1,0 +1,116 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+
+
+{% if messages %}
+    {% for message in messages %}  
+        {% if "success" in message.tags %}
+            <div class="p-3 mb-2 bg-success text-white">
+                {{ message }}
+            </div>
+        {% endif %}    
+    {% endfor %}
+{% endif %}
+
+{% if form.errors %}
+    <div class="p-3 mb-2 bg-warning text-dark">  
+        <strong>Chyby ve formuláři:</strong>
+        <ul>
+            {% for field, errors in form.errors.items %}  
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<form action="" method="post">
+  {% csrf_token %}
+
+  <div class="container mt-4">
+    <div class="col-md-8 d-flex align-items-center">
+      <h2 class="margin_top me-5">Editovat pojištění pro: {{ customer.first_name }} {{ customer.last_name }}</h2>
+    </div>
+  </div>
+
+ {{ form.customer.as_hidden }}
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-lg-8 col-md-4">
+        <div class="form-group">
+          <label for="exampleSelect" class="form-label mb-1 fw-bold"
+            >Pojištění</label
+          >
+          <select name="kind_of_insurance" id="id_kind_of_insurance" class="form-select border-1 border-dark">
+            {% for kind_of_insurance in insurances %}
+              <option value="{{ kind_of_insurance.id }}">{{ kind_of_insurance.description }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4"></div>
+    <div class="row mt-3">
+      <div class="col-lg-4 col-md-4">
+        <label for="amount" class="form-label mb-1">Částka v (kč)</label>
+        <input
+          type="number"
+          class="form-control"
+          id="amount"
+          placeholder="1000"
+          maxlength="14"
+
+          value="{{ form.amount.value|stringformat:'0.0f' }}"
+          name="amount"
+        />
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <label for="subject_of_insurance" class="form-label mb-1">Předmět pojištění</label>
+        <input
+          type="text"
+          class="form-control"
+          id="subject_of_insurance"
+          value="{{ form.subject_of_insurance.value }}"
+          maxlength="100"
+          name="subject_of_insurance"
+        />
+      </div>
+      <div class="col-lg-4 col-md-4"></div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-4 col-md-4">
+        <label for="valid_from" class="form-label mb-1"> Platnost od</label>
+        <input
+          type="date"
+          class="form-control"
+          id="valid_from"
+          placeholder="1.1.2005"
+          value="{{ form.valid_from.value|date:'Y-m-d' }}"
+          name="valid_from"
+        />
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <label for="valid_until" class="form-label mb-1">Platnost do</label>
+        <input
+          type="date"
+          class="form-control"
+          id="valid_until"
+          placeholder="1.1.20035"
+          value="{{ form.valid_until.value|date:'Y-m-d' }}"
+          name="valid_until"
+        />
+      </div>
+      <div class="col-lg-4 col-md-4"></div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-lg-4 col-md-4"></div>
+      <div class="col-lg-4 col-md-4 text-center">
+        <button type="submit" class="btn btn-primary mywidth">Uložit</button>
+        <a href="{% url 'insured_detail' pk=customer.pk %}" class="btn btn-secondary mywidth">Zpět</a>
+      </div>
+      <div class="col-lg-4 col-md-4"></div>
+    </div>
+  </div>
+</form>
+{% endblock %}

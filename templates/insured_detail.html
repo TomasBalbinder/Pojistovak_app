@@ -1,0 +1,95 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+
+
+{% if messages %}
+    {% for message in messages %}  
+        {% if "success" in message.tags %}
+            <div class="p-3 mb-2 bg-success text-white">
+                {{ message }}
+            </div>
+        {% elif "error" in message.tags %}
+            <div class="p-3 mb-2 bg-danger text-white">
+                {{ message }}
+            </div>
+        {% endif %}    
+    {% endfor %}
+{% endif %}
+
+
+<!-- timer for hide messages -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            var alerts = document.getElementsByClassName("bg-success");
+            while(alerts.length > 0){
+                alerts[0].remove();
+            }
+        }, 2500); 
+    });
+</script>
+
+
+
+<div class="container mt-4">
+    <div class="row my-margin">
+        <div class="col-md-2">
+            <img src="{% static 'staticfolder/photo-camera.png' %}" alt="" class=" border border-dark p-4">
+        </div>
+        <div class="col-md-4 align-self-end">
+            <h3 class="mb-3">{{ customer_detail.first_name }} {{ customer_detail.last_name }}</h3>
+            <p class="mb-1">{{ customer_detail.address }}</p>
+            <p class="mb-1">{{ customer_detail.city }}</p>
+            <p class="mb-1">{{ customer_detail.zip_code }}</p>
+        </div>
+        <div class="col-md-2 align-self-end">
+            <p class="mb-1">{{ customer_detail.email }}</p>
+            <p class="mb-1">{{ customer_detail.phone }}</p>
+        </div>
+    </div>
+    {% if insurance_details|length == 0 %}
+        <h3 class="text-center margin_table_pd">Zákazník doposud nemá sjednaná žadná pojištění.</h3>
+    {% else %}
+    <h4 class="margin_top mb-2 my-margin">Sjednaná pojištění</h4>
+    
+    <table class="table table-bordered border border-secondary border-2 p-1">
+        <thead>
+            <tr>
+                <th class="text-center">Pojištěni</th>
+                <th class="text-center">Předmět pojištění</th>
+                <th class="text-center">Částka</th>
+                <th class="text-center">Platnost od</th>
+                <th class="text-center">Platnost do</th>
+                <th class="text-center">Úprava</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for insurance in insurance_details %}
+            <tr>
+                <td>{{ insurance.kind_of_insurance }}</td>
+                <td>{{ insurance.subject_of_insurance }}</td>
+                <td>{{ insurance.amount }} Kč</td>
+                <td>{{ insurance.valid_from }}</td>
+                <td>{{ insurance.valid_until }}</td>
+                <td class="col-md-3 text-center " style="width: 18%;">
+                    <a href="{% url 'edit_insurance' pk=insurance.pk %}" class="btn btn-warning">Upravit</a>
+                    <form method="POST" action="{% url 'delete_insurance' pk=insurance.pk %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Smazat</button>                
+                    </form>
+                </td> 
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    <div class="container text-center mt-4 margin_bottom">
+        <a href="{% url 'new_insurance' %}" class="btn btn-primary mx-1 mywidth-p-font">Přidat pojištění</a>
+        <a href="{% url 'edit_insured' pk=customer_detail.pk %}" class="btn btn-warning mx-1 mywidth-p-font text-white">Editovat pojištence</a>
+            <form method="POST" action="{% url 'delete_customer' pk=customer_detail.pk %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger mx-1 mywidth-p-font">Smazat pojištence</button>                
+            </form>
+    </div>
+</div>
+{% endblock %}

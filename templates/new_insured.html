@@ -1,0 +1,174 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+
+
+{% if messages %}
+    {% for message in messages %}  
+        {% if "success" in message.tags %}
+            <div class="p-3 mb-2 bg-success text-white">
+                {{ message }}
+            </div>
+        {% elif "error" in message.tags %}
+            <div class="p-3 mb-2 bg-danger text-white">
+                {{ message }}
+            </div>
+        {% endif %}    
+    {% endfor %}
+{% endif %}
+
+
+{% if context.form.errors %}
+    <div class="p-3 mb-2 bg-warning text-dark">  
+        <strong>Chyby ve formuláři:</strong>
+        <ul>
+            {% for field, errors in context.form.errors.items %}  
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            var alerts = document.getElementsByClassName("bg-success");
+            while(alerts.length > 0){
+                alerts[0].remove();
+            }
+        }, 3000); 
+    });
+</script>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8">
+      <h2 class="margin_top">{{ context.action }}</h2>
+      <p></p>
+    </div>
+  </div>
+</div>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-lg-4 col-md-4">
+                <label for="first_name" class="form-label mb-1 asterisk">Jméno</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="first_name"
+                    placeholder="Jan"
+                    name="first_name"
+                    maxlength="50"
+                    value="{{ context.customer.first_name}}"
+                />
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <label for="last_name" class="form-label mb-1 asterisk">Příjmení</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="last_name"
+                    placeholder="Novák"
+                    name="last_name"
+                    maxlength="50"
+                    value="{{ context.customer.last_name }}"
+                />
+            </div>
+            <div class="col-lg-4 col-md-4">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-4 col-md-4">
+                <label for="email" class="form-label mb-1">Email</label>
+                <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="jannovak@gmail.com"
+                name="email"
+                maxlength="50"
+                value="{{ context.customer.email }}"
+                />
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <label for="phone" class="form-label mb-1">Telefon</label>
+                <input
+                type="tel"
+                class="form-control"
+                id="phone"
+                placeholder="777 888 444"
+                name="phone"
+                maxlength="20"
+                value="{{ context.customer.phone }}"
+                />
+            </div>     
+            <div class="col-lg-4 col-md-4"></div> 
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-4 col-md-4">
+                <label for="address" class="form-label mb-1 asterisk">
+                Ulice a číslo popisné</label>       
+                <input
+                type="text"
+                class="form-control"
+                id="address"
+                placeholder="Na Svahu 45"
+                name="address"
+                maxlength="50"
+                value="{{ context.customer.address }}"
+                />
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <label for="city" class="form-label mb-1 asterisk">Město</label>
+                <input
+                type="text"
+                class="form-control"
+                id="city"
+                placeholder="Svitavy"
+                name="city"
+                maxlength="50"
+                value="{{ context.customer.city }}"
+                />
+            </div>
+            <div class="col-lg-4 col-md-4">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-4 col-md-4">      
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <label for="zip_code" class="form-label mb-1">PSČ</label>
+                <input
+                type="number"
+                class="form-control"
+                id="zip_code"
+                placeholder="690 001"
+                name="zip_code"
+                maxlength="50"
+                value="{{ context.customer.zip_code }}"
+                />
+            </div>
+            <div class="col-lg-4 col-md-4">
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-lg-4 col-md-4">
+            </div>
+            <div class="col-lg-4 col-md-4 text-center">
+                <button type="submit" class="btn btn-primary mywidth">Uložit</button>
+                {% if context.customer.pk %}
+                <a href="{% url 'insured_detail' pk=context.customer.pk %}" class="btn btn-secondary mywidth">Zpět</a>
+                {% endif %}
+            </div>
+            <div class="col-lg-4 col-md-4">
+            </div>
+        </div>      
+    </div>
+</form>
+
+{% endblock %}

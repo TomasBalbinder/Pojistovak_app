@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-md-8">
+        <h2 class="margin_top">Tržby zaměstnanců</h2>
+        <p></p>
+      </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <h4 class="margin_top mb-2 my-margin">Tržby celkem</h4>
+    <table class="table table-bordered border border-secondary border-2 p-1">
+        <thead>
+            <tr>
+                <th class="text-center">Zaměstanec</th>
+                <th class="text-center">Počet klientů</th>
+                <th class="text-center">Počet smluv</th>
+                <th class="text-center">Celkem</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in employee_data %}
+            <tr>
+                <td>{{ data.employee.user.username }}</td>
+                <td>{{ data.clients_count }}</td>
+                <td>{{ data.contract_count }}</td>
+                <td>{{ data.total_amount }} Kč</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

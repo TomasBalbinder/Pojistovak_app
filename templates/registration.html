@@ -1,0 +1,118 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+
+
+{% if messages %}
+    {% for message in messages %}  
+        {% if "success" in message.tags %}
+            <div class="p-3 mb-2 bg-success text-white">
+                {{ message }}
+            </div>
+        {% endif %}    
+    {% endfor %}
+{% endif %}
+
+
+{% if form.errors %}
+    <div class="p-3 mb-2 bg-warning text-dark">  
+        <strong>Chyby ve formuláři:</strong>
+        <ul>
+            {% for field, errors in form.errors.items %}  
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            var alerts = document.getElementsByClassName("bg-success");
+            while(alerts.length > 0){
+                alerts[0].remove();
+            }
+        }, 3000); 
+    });
+</script>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8">
+      <h2 class="margin_top">Registrace</h2>
+      <p class="margin_bottom">Registrace pro zaměstance</p>
+    </div>
+  </div>
+</div>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-lg-4 col-md-4">
+                <label for="inputName" class="form-label mb-1 asterisk">Uživatelské jméno</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="user_id"
+                    placeholder="Květinka"
+                    value="{{ form.user_id.value }}"
+                    name="user_id"
+                    maxlength="20"
+                />
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <label for="inputEmail" class="form-label mb-1 asterisk">Email</label>
+                <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="jannovak@gmail.com"
+                value="{{ form.email.value }}"
+                name="email"
+                maxlength="50"
+                />
+            </div>
+            <div class="col-lg-4 col-md-4">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-4 col-md-4">
+                <label for="inputPassword" class="form-label mb-1 asterisk">Heslo</label>
+                <input
+                type="password"
+                class="form-control"
+                id="password"
+                value="{{ form.password.value }}"
+                name="password"
+                maxlength="20"
+                />
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <label for="inputPassword1" class="form-label mb-1 asterisk">Heslo znovu</label>
+                <input
+                type="password"
+                class="form-control"
+                id="password1"
+                value="{{ form.password1.value }}"
+                name="password1"
+                maxlength="20"
+                />
+            </div>     
+            <div class="col-lg-4 col-md-4"></div> 
+        </div>
+        <div class="row mt-5">
+            <div class="col-lg-4 col-md-4">
+            </div>
+            <div class="col-lg-4 col-md-4 text-center">
+                <button type="submit" class="btn btn-primary mywidth">Registrovat se</button>
+            </div>
+            <div class="col-lg-4 col-md-4">
+            </div>
+        </div>      
+    </div>
+</form>
+
+{% endblock %}

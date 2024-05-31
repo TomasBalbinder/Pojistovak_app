@@ -1,0 +1,90 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+
+{% if messages %}
+    {% for message in messages %}  
+        {% if "success" in message.tags %}
+            <div class="p-3 mb-2 bg-success text-white">
+                {{ message }}
+            </div>
+        {% elif "error" in message.tags %}
+            <div class="p-3 mb-2 bg-danger text-white">
+                {{ message }}
+            </div>
+        {% endif %}    
+    {% endfor %}
+{% endif %}
+
+{% if form.non_field_errors %}
+    <div class="p-3 mb-2 bg-warning text-white">  
+        {{ form.non_field_errors }}
+    </div>
+{% endif %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            var alerts = document.getElementsByClassName("bg-danger");
+            while(alerts.length > 0){
+                alerts[0].remove();
+            }
+        }, 3000); 
+    });
+</script>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8">
+      <h2 class="margin_top">Přihlášení</h2>
+      <p class="margin_bottom">Přihlášení pro zaměstance</p>
+    </div>
+  </div>
+</div>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-lg-4 col-md-4">
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <label for="inputUsername" class="form-label mb-1">Uživatelské jméno</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    value="{{ form.username.value }}"
+                    maxlength="20"
+                    name="username"
+                />
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-4 col-md-4">
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <label for="inputPassword" class="form-label mb-1">Heslo</label>
+                <input
+                type="password"
+                class="form-control"
+                value="{{ form.password.value }}"
+                id="password"
+                maxlength="20"
+                name="password"
+                />
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-lg-4 col-md-4">
+            </div>
+            <div class="col-lg-4 col-md-4 text-center">
+                <button type="submit" class="btn btn-primary mywidth">Přihlásit se</button>
+            </div>
+            <div class="col-lg-4 col-md-4">
+            </div>
+        </div>      
+    </div>
+</form>
+
+{% endblock %}
