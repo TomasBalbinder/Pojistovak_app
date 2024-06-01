@@ -10,7 +10,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pojistovak-app.onrender.com']
 
 
 # Application definition
@@ -58,8 +58,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'pojistovna.wsgi.application'
 
 
-
-# Replace the SQLite DATABASES configuration with PostgreSQL:
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
