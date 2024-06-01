@@ -11,8 +11,8 @@ python manage.py collectstatic --no-input
 # Apply any outstanding database migrations
 python manage.py migrate
 
-if [[ $CREATE_SUPERUSER ]]; then
-    echo "Vytvářím superuživatele..."
-    python manage.py createsuperuser --no-input --username "$DJANGO_SUPERUSER_USERNAME" --email "$DJANGO_SUPERUSER_EMAIL"
-fi
+# if [[ $CREATE_SUPERUSER ]]; then
+#     echo "Vytvářím superuživatele..."
+#     python manage.py createsuperuser --no-input --username "$DJANGO_SUPERUSER_USERNAME" --email "$DJANGO_SUPERUSER_EMAIL"
+# fi
 
