@@ -13,7 +13,14 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = ['pojistovak-app.onrender.com']
 
 
-# Application definition
+ADMIN_LOGIN = 'pepicek'
+ADMIN_PASSWORD = 'pepicek'
+
+
+AUTHENTICATION_BACKENDS = [
+    'pojistovna.backends.SettingsBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
