@@ -11,9 +11,11 @@ python manage.py collectstatic --no-input
 # Apply any outstanding database migrations
 python manage.py migrate
 
-if [[ $CREATE_SUPERUSER ]];
-then
-    python manage.py createsuperuser --no-input 
-    -username "$DJANGO_SUPERUSER_USERNAME" 
-    --email "$DJANGO_SUPERUSER_EMAIL" 
+if [[ $CREATE_SUPERUSER ]]; then
+    echo "Vytvářím superuživatele..."
+    echo "Uživatelské jméno: $DJANGO_SUPERUSER_USERNAME"
+    echo "E-mail: $DJANGO_SUPERUSER_EMAIL"
+    python manage.py createsuperuser --no-input \
+    --username "$DJANGO_SUPERUSER_USERNAME" \
+    --email "$DJANGO_SUPERUSER_EMAIL"
 fi
