@@ -18,7 +18,7 @@ ADMIN_PASSWORD = 'pepicek'
 
 
 AUTHENTICATION_BACKENDS = [
-    'pojistovna.backends.SettingsBackend',
+    'evidence_pojisteni_app.backends.SettingsBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
