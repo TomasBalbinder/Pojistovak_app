@@ -21,6 +21,7 @@ from evidence_pojisteni_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include("evidence_pojisteni_app.urls")),
     path('pojisteni_app/', include("evidence_pojisteni_app.urls")),
 
 ]
