@@ -17,10 +17,6 @@ ADMIN_LOGIN = 'pepicek'
 ADMIN_PASSWORD = 'pepicek'
 
 
-AUTHENTICATION_BACKENDS = [
-    'evidence_pojisteni_app.backends.SettingsBackend',
-    'django.contrib.auth.backends.ModelBackend',
-]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
