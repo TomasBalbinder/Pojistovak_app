@@ -14,6 +14,6 @@ from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pojistovna.settings')
 
 application = get_asgi_application()
-application = ProxyHeadersMiddleware(django_asgi_application, trusted_hosts=["your-render-app.onrender.com"])
+application = ProxyHeadersMiddleware(django_asgi_application, trusted_hosts=["evidence_pojisteni.app.onrender.com"])
 
 
