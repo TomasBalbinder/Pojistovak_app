@@ -18,7 +18,7 @@ if [[ $CREATE_SUPERUSER ]]; then
     echo "Kontroluji a vytvářím UserProfile..."
     python << END
 import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'world_champ_2022.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pojistovna.settings')
 import django
 django.setup()
 from django.contrib.auth.models import User
