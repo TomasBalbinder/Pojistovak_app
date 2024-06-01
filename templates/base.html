@@ -53,7 +53,7 @@
                 {% endif %}
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'about_aplication' %}">O aplikaci...</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'about_aplication' %}active{% endif %}" aria-current="O aplikaci" href="{% url 'about_aplication' %}">O aplikaci...</a>
               </li>
             </ul>
           </div>
