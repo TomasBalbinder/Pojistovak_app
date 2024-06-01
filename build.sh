@@ -13,14 +13,16 @@ python manage.py migrate
 
 python manage.py shell <<EOF
 from django.contrib.auth.models import User
+from evidence_pojisteni_app.models import UserProfile  # Importujte váš model UserProfile
 
 username = 'admin'
 email = 'tomasbalbinder@gmail.com'
 password = 'Idefixa'
 
 if not User.objects.filter(username=username).exists():
-    User.objects.create_superuser(username, email, password)
-    print(f'Superuser {username} created')
+    user = User.objects.create_superuser(username, email, password)
+    UserProfile.objects.create(user=user)  # Vytvoříme uživatelský profil
+    print(f'Superuser {username} created with profile')
 else:
     print(f'Superuser {username} already exists')
 EOF
