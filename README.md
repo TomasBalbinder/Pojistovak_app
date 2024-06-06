@@ -13,7 +13,7 @@ Cílem mojí aplikace je usnadnit pojišťovacím agentům správu jejich klient
 * Generovat přehledy a statistiky o výkonnosti.
 
 ## Jak používat aplikaci
-**Než se zkusíte přihlásit do aplikace je potřeba mě kontaktovat, například prostřednictvím emailu tady na stránce.**
+**Než se zkusíte registrovat do aplikace je potřeba mě kontaktovat, například prostřednictvím emailu tady na stránce.**
 
 Až když obdržíte vaše přihlašovací údaje můžete se registrovat.
 
