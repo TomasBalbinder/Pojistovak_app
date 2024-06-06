@@ -15,7 +15,7 @@ Cílem mojí aplikace je usnadnit pojišťovacím agentům správu jejich klient
 ## Jak používat aplikaci
 **Než se zkusíte registrovat do aplikace je potřeba mě kontaktovat, například prostřednictvím emailu tady na stránce.**
 
-Až když obdržíte vaše přihlašovací údaje můžete se registrovat.
+Až když obdržíte vaše přihlašovací údaje můžete se registrovat.(Jinak vám registrace nebude fungovat).
 
 Po registraci se již můžete přihlásít do svého účtu. Poté můžete:
 1. Přidávat nové klienty a jejich údaje.
